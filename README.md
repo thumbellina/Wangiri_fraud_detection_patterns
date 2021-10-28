@@ -10,4 +10,4 @@ User guidelines :
 6. Results are visible in form of confusion matrix and accuracy, precision recall scores
 7. Confusion matrix images are stored in static/images folder
 
-This repository by Akshaya Ravi is part of the research  paper :  
+This repository by Akshaya Ravi is part of the research  paper "Wangiri Fraud: Pattern Analysis and MachineLearning-based Detection":  
