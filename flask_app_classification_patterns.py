@@ -31,10 +31,11 @@ cross_val_splits=10
 balanceData= True # Change to False to use normal data
 sampling_ratio= 0.5
 
+# Pattern 1
 def get_missedcall_pattern_groundtruth(data):
     data['Label'] = np.where((data['c_number'] != data['a_number'])  &  (data["conversation_time"]<30), 1, 0)
     return data
-
+# Filter suspicious numbers for p2 and p3
 def get_suspicious_nos(data):
     bnumcount= data.groupby(['a_number'])['b_number'].nunique()
     callcount=data.groupby(['a_number']).count()["b_number"]
@@ -43,14 +44,14 @@ def get_suspicious_nos(data):
     suspicious_nums_out=count_data[(count_data["bnumcount"]>=200) | (count_data["callcount"]>=200) ]
     return suspicious_nums_out
 
-    
+# Pattern 2    
 def get_callback_pattern_groundtruth(data):
     suspicious_nums_out=get_suspicious_nos(data)
     targettednums=data[data["a_number"].isin(suspicious_nums_out["anum"])]["b_number"].unique()
     callback=data[(data["a_number"].isin(targettednums)) & (data["b_number"].isin(suspicious_nums_out["anum"].values))]
     data['Label'] = np.where((data["a_number"].isin(callback["a_number"].unique())), 1, 0)
     return data
-
+# Pattern 3
 def get_broadcast_seq_groundtruth(data):
     suspicious_nums_out=get_suspicious_nos(data)
     data['Label'] = np.where((data["a_number"].isin(suspicious_nums_out["anum"])), 1, 0)
@@ -160,7 +161,7 @@ def calc_eval_metrics(cf_test_matrix):
     rec = tp / p
     f1 = 2 * prec* rec/ (prec+rec)
     return acc,prec,rec,f1
-
+# For getting precision recall curve
 def get_pr_recall():
     #print("in pr curve model fitting")
     #modelNB = GaussianNB().fit(X_train,y_train)
@@ -303,4 +304,4 @@ if balanceData:
 else:
     X,y,X_train, X_test,y_train, y_test = trtest_split(labelled_data)
     
-get_pr_recall()
+#get_pr_recall()
