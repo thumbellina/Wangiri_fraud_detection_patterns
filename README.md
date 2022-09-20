@@ -8,6 +8,6 @@ User guidelines :
    - flask run
 5. In the application select the algorithm you would want to run
 6. Results are visible in form of confusion matrix and accuracy, precision recall scores
-7. Confusion matrix images are stored in static/images folder
+7. Confusion matrix images are stored in static/images folder.
 
 This repository created by Akshaya Ravi is part of the research  paper "Wangiri Fraud: Pattern Analysis and MachineLearning-based Detection":   https://ieeexplore.ieee.org/document/9772071
